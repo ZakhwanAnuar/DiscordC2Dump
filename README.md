@@ -1,7 +1,5 @@
 # DiscordC2Dump
 
-# discord_enum.py
-
 A small Threat Intel helper for enumerating a Discord bot's accessible guild
 (server) when you've recovered a **bot token** and **guild ID** — e.g. from
 a malware sample using Discord as a C2 (command-and-control) channel.
