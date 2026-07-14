@@ -52,49 +52,24 @@ python3 -m venv venv && source venv/bin/activate && pip install requests
 
 ---
 
-## Configuration
-
-Open `discord_enum.py` and fill in the config block near the top:
-
-```python
-TOKEN = "YOUR_BOT_TOKEN_HERE"
-GUILD_ID = "YOUR_GUILD_ID_HERE"
-FLAG_REGEX = re.compile(r"[A-Za-z0-9_]*\{[^}]+\}")  # matches flag{...}, CTF{...}, etc.
-OUT_DIR = "dump"
-```
-
-- **`TOKEN`** — the raw bot token (no `Bot ` prefix needed here, the script
-  adds it).
-- **`GUILD_ID`** — the numeric guild/server ID (a Discord snowflake, e.g.
-  `1525918842843435290`).
-- **`FLAG_REGEX`** — adjust if your challenge uses a specific flag format
-  (e.g. `re.compile(r"CTF\{[^}]+\}")`).
-
----
-
 ## Usage
 
 ```bash
-python3 discord_enum.py
+python3 discord_c2_dump.py
 ```
 
 Example output:
 
 ```
-[+] Bot identity: bot1#2945 (id=1499723182125482094)
-[+] Guild: hello (id=1525918842843435290)
-[+] Found 5 channels
-    - #Text Channels (id=1525918844496121886, type=4)
-    - #Voice Channels (id=1525918844496121887, type=4)
-    - #general (id=1525918844496121888, type=0)
-    - #General (id=1525918844496121889, type=2)
-    - #session-zakhwan-4bac67b8 (id=1526155047803818034, type=0)
-[*] Scanning #general ...
-[*] Scanning #session-zakhwan-4bac67b8 ...
-    [FLAG CANDIDATE in #session-zakhwan-4bac67b8] ['flag{...}'] -- msg id ...
-
-[+] Done. Full message dumps saved in ./dump/. Re-grep with:
-    grep -rEo '[A-Za-z0-9_]*\{[^}]+\}' dump/
+01:00:56 [INFO] Authenticated as bot bot1#2925 (id=163712987987288921)
+01:00:56 [INFO] Guild: hello (id=1525918842843435290, members=2)
+01:00:57 [INFO] Found 3 readable channels
+01:00:57 [INFO] Scanning #general (1525918844496121888)
+01:00:57 [INFO] Scanning #session-example-4bac67b8 (12345678909876543210)
+01:00:57 [INFO] Scanning #session-example2-5316cacf (0987654321234567890)
+01:01:04 [INFO] Done. 93 new messages across 3 channels.
+01:01:04 [INFO] Digest written to dump/digest.txt
+01:01:04 [INFO] IOC summary written to dump/iocs.json
 ```
 
 Channel dumps land in `./dump/<channel_name>_<channel_id>.json`, and any
